@@ -33,12 +33,25 @@ h1{font-size:24px;font-weight:700;margin-bottom:6px}
   var p=new URLSearchParams(window.location.search);
   var t=p.get("type")||"event";
   var i=p.get("id")||"";
-  document.getElementById("open-btn").href="snappath://"+t+"?id="+i;
   var ua=navigator.userAgent.toLowerCase();
-  var iOS=/iphone|ipad|ipod/.test(ua);
-  var url=iOS?"https://apps.apple.com/tw/app/snappath/id6756558274":"https://play.google.com/store/apps/details?id=com.boris.snappath";
-  document.getElementById("store-btn").href=url;
-  document.getElementById("store-btn").textContent=iOS?"Download on App Store":"Download on Google Play";
+  var isIOS=/iphone|ipad|ipod/.test(ua);
+  var isAndroid=/android/.test(ua);
+
+  var openLink;
+  if(isAndroid){
+    // Android Chrome uses Intent URL to open apps
+    openLink="intent://"+t+"?id="+i+"#Intent;scheme=snappath;package=com.boris.snappath;S.browser_fallback_url=https://play.google.com/store/apps/details?id=com.boris.snappath;end";
+  }else{
+    openLink="snappath://"+t+"?id="+i;
+  }
+
+  var storeUrl=isIOS
+    ?"https://apps.apple.com/tw/app/snappath/id6756558274"
+    :"https://play.google.com/store/apps/details?id=com.boris.snappath";
+
+  document.getElementById("open-btn").href=openLink;
+  document.getElementById("store-btn").href=storeUrl;
+  document.getElementById("store-btn").textContent=isIOS?"Download on App Store":"Download on Google Play";
 })();
 </script>
 </body>

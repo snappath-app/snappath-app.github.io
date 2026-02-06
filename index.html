@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SnapPath</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#F5F5F0;display:flex;justify-content:center;align-items:center;min-height:100vh;color:#2C2C2C}
+.card{text-align:center;padding:48px 32px;max-width:360px;width:100%}
+.logo{width:80px;height:80px;background:#2C2C2C;border-radius:20px;margin:0 auto 24px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:28px;font-weight:bold}
+h1{font-size:24px;font-weight:700;margin-bottom:6px}
+.sub{font-size:14px;color:#aaa;margin-bottom:36px;letter-spacing:2px}
+.btn{display:block;width:100%;padding:16px;border-radius:12px;font-size:16px;font-weight:600;text-decoration:none;margin-bottom:12px;text-align:center}
+.bp{background:#D4715A;color:#fff}
+.bs{background:#fff;color:#2C2C2C;border:1px solid #E0E0E0}
+.dv{display:flex;align-items:center;margin:20px 0;color:#ccc;font-size:12px}
+.dv::before,.dv::after{content:"";flex:1;height:1px;background:#ddd}
+.dv span{padding:0 12px}
+</style>
+</head>
+<body>
+<div class="card">
+<div class="logo">SP</div>
+<h1>SnapPath</h1>
+<div class="sub">STREET PHOTOGRAPHY</div>
+<a class="btn bp" id="open-btn" href="#">Open in SnapPath</a>
+<div class="dv"><span>OR</span></div>
+<a class="btn bs" id="store-btn" href="#">Download App</a>
+</div>
+<script>
+(function(){
+  var p=new URLSearchParams(window.location.search);
+  var t=p.get("type")||"event";
+  var i=p.get("id")||"";
+  document.getElementById("open-btn").href="snappath://"+t+"?id="+i;
+  var ua=navigator.userAgent.toLowerCase();
+  var iOS=/iphone|ipad|ipod/.test(ua);
+  var url=iOS?"https://apps.apple.com/tw/app/snappath/id6756558274":"https://play.google.com/store/apps/details?id=com.boris.snappath";
+  document.getElementById("store-btn").href=url;
+  document.getElementById("store-btn").textContent=iOS?"Download on App Store":"Download on Google Play";
+})();
+</script>
+</body>
+</html>
